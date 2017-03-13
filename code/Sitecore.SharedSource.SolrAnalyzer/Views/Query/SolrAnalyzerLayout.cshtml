@@ -1,0 +1,17 @@
+﻿@using Sitecore.Shell.Framework.Commands.Masters
+@using Sitecore.Data.Managers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/sitecore/shell/themes/standard/default/Default.css" rel="stylesheet" type="text/css"/>
+    <link href="/sitecore modules/Web/SolrAnalyzer/css/Sitecore.SharedSource.SolrAnalyzer.css?x=@(new System.Random().Next())" rel="stylesheet" type="text/css" />
+    <script src="~/sitecore modules/Web/SolrAnalyzer/js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    @RenderBody()
+    <script src="/sitecore modules/Web/SolrAnalyzer/js/Sitecore.SharedSource.SolrAnalyzer.js"></script>
+</body>
+</html> 
