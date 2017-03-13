@@ -205,11 +205,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\QueryAnalyzer.cs" />
+    <Compile Include="Configurator\SolrAnalyzerConfigurator.cs" />
     <Compile Include="Controllers\SolrAnalyzer\QueryController.cs" />
     <Compile Include="Factories\IQueryFactory.cs" />
     <Compile Include="Factories\QueryFactory.cs" />
+    <Compile Include="Foundation\ServiceCollectionExtensions.cs" />
     <Compile Include="Models\IStatisticsBoard.cs" />
-    <Compile Include="Models\QueryAnalyzer.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Models\ISolrQuery.cs" />
     <Compile Include="Models\SolrQuery.cs" />
