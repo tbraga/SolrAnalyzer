@@ -4,7 +4,7 @@ Tested on Sitecore 8.2 update 2 but should work on previous verions.  Has abilit
 ## What is this?
 This tool will analyze the performance of the queries that have been running against Solr. Each query is an HTTP call and has a consequence in downloading the requested data. Try to tune your queries to be lean, this will help in downloading a smaller amount of data while applying the same intended value. You will also save on bandwidth between the server and the requestor.
 
-![alt text](https://github.com/tbraga/SolrAnalyzer/blob/master/screenshots/query-analyzer.png "Query Analyzer")
+![alt text](https://github.com/tbraga/SolrAnalyzer/raw/master/screenshots/query-analyzer.png "Query Analyzer")
 
 ## Performance tips to keep in mind
 * Select only the fields on the document you need for your scenario. If you only need 10 of the 50 fields for a specific query only call those 10, this will reduce the amount of bytes during the response download.
