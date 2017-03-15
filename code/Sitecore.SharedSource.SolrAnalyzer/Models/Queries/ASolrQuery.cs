@@ -44,7 +44,6 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models.Queries
         public string GetQueryUrl()
         {
             string solrAddress = Settings.GetSetting("ContentSearch.Solr.ServiceBaseAddress");
-            solrAddress = "http://localhost:8080/solr/";
             string url = string.Format("{0}/{1}/select?{2}", solrAddress, Index, Query);
             url = url.Replace("/solr/solr/", "/solr/");
             url = url.Replace("/solr//solr//", "/solr/");

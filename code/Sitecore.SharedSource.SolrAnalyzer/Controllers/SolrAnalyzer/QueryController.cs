@@ -5,9 +5,15 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Controllers.SolrAnalyzer
 {
     public class QueryController : Controller
     {
+        protected readonly IQueryFactory _factory;
+        public QueryController(IQueryFactory factory)
+        {
+            _factory = factory;
+        }
+
         public ActionResult QueryAnalysis()
         {
-            var model = new QueryFactory().GetStatisticsBoard(HttpContext.Request.QueryString["idx"]);
+            var model = _factory.GetStatisticsBoard(HttpContext.Request.QueryString["idx"]);
             return View("QueryAnalyzer", model);
         }
     }
