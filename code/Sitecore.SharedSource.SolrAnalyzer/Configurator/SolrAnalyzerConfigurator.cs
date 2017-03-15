@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
-using Sitecore.Foundation.DependencyInjection;
 using Sitecore.SharedSource.SolrAnalyzer.Factories;
+using Sitecore.SharedSource.SolrAnalyzer.Foundation;
 using Sitecore.SharedSource.SolrAnalyzer.Models.Boards;
 
 namespace Sitecore.SharedSource.SolrAnalyzer.Configurator

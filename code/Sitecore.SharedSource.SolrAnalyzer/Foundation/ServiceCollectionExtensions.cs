@@ -8,11 +8,11 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Sitecore.Foundation.DependencyInjection
+namespace Sitecore.SharedSource.SolrAnalyzer.Foundation
 {
     public static class ServiceCollectionExtensions
     {
-        [MethodImplAttribute(MethodImplOptions.NoInlining)]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void AddMvcControllersInCurrentAssembly(this IServiceCollection serviceCollection)
         {
             AddMvcControllers(serviceCollection, Assembly.GetCallingAssembly());
