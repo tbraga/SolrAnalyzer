@@ -14,12 +14,15 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
         public StatisticsBoard()
         {
             Queries = new List<ISolrQuery>();
+            Indexes = new List<string>();
         }
 
         public long TotalNumDocsReturned { get; set; }
         public long TotalPayload { get; set; }
         public double TotalTime { get; set; }
         public IList<ISolrQuery> Queries { get; set; }
+        public string SelectedIndex { get; set; }
+        public List<string> Indexes { get; set; }
 
         public void Process()
         {
@@ -137,7 +140,10 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             int returnValue;
             if (int.TryParse(intString, out returnValue))
             {
-                return returnValue; 
+                if (returnValue != int.MaxValue)
+                {
+                    return returnValue;
+                }
             }
 
             return 0;
@@ -156,6 +162,17 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
                     .Select(x => (ISolrQuery)new SolrQuery(x))
                     .Where(x => x.IsValid)
                     .ToList();
+
+                Indexes = logEntries.Select(x => x.Index)
+                    .Distinct()
+                    .OrderBy(x => x)
+                    .ToList();
+
+                //filter out other indexes if one is selected
+                if (!string.IsNullOrEmpty(SelectedIndex))
+                {
+                    logEntries = logEntries.Where(x => x.Index == SelectedIndex).ToList();
+                }
 
                 logEntries = Filter(logEntries);
 

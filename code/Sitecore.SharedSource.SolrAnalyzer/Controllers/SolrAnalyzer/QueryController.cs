@@ -7,7 +7,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Controllers.SolrAnalyzer
     {
         public ActionResult QueryAnalysis()
         {
-            var model = new QueryFactory().GetStatisticsBoard();
+            var model = new QueryFactory().GetStatisticsBoard(HttpContext.Request.QueryString["idx"]);
             return View("QueryAnalyzer", model);
         }
     }

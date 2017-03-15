@@ -87,11 +87,10 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             string url = GetQueryUrl();
             string anchorHref = url.Replace("\"", "'");
             string title = Query.Replace("\"", "'");
-            string anchor = string.Format("<a href=\"{2}\" target=\"_blank\" title=\"{0}\">[{3}] - {1}</a>",
+            string anchor = string.Format("<a href=\"{2}\" target=\"_blank\" title=\"{0}\">{1}</a>",
                 title,
                 showQuery,
-                anchorHref,
-                Index);
+                anchorHref);
 
             return new HtmlString(anchor);
         }
