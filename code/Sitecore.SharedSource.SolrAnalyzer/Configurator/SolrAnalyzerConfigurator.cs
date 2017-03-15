@@ -2,7 +2,7 @@
 using Sitecore.DependencyInjection;
 using Sitecore.Foundation.DependencyInjection;
 using Sitecore.SharedSource.SolrAnalyzer.Factories;
-using Sitecore.SharedSource.SolrAnalyzer.Models;
+using Sitecore.SharedSource.SolrAnalyzer.Models.Boards;
 
 namespace Sitecore.SharedSource.SolrAnalyzer.Configurator
 {
@@ -11,7 +11,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Configurator
         public void Configure(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IQueryFactory, QueryFactory>();
-            serviceCollection.AddTransient<IStatisticsBoard, StatisticsBoard>();
+            serviceCollection.AddTransient<IStatisticsBoard, StatisticsBoardSolr6>();
 
             serviceCollection.AddMvcControllersInCurrentAssembly();
         }

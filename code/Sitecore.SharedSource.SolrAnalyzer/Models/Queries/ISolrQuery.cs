@@ -2,7 +2,7 @@
 using System.Web;
 using Sitecore.Syndication;
 
-namespace Sitecore.SharedSource.SolrAnalyzer.Models
+namespace Sitecore.SharedSource.SolrAnalyzer.Models.Queries
 {
     public interface ISolrQuery
     {

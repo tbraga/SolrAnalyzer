@@ -6,12 +6,13 @@ using System.Net;
 using System.Text.RegularExpressions;
 using Sitecore.Configuration;
 using Sitecore.Diagnostics;
+using Sitecore.SharedSource.SolrAnalyzer.Models.Queries;
 
-namespace Sitecore.SharedSource.SolrAnalyzer.Models
+namespace Sitecore.SharedSource.SolrAnalyzer.Models.Boards
 {
-    public class StatisticsBoard : IStatisticsBoard
+    public abstract class AStatisticsBoard : IStatisticsBoard
     {
-        public StatisticsBoard()
+        protected AStatisticsBoard()
         {
             Queries = new List<ISolrQuery>();
             Indexes = new List<string>();
@@ -20,9 +21,11 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
         public long TotalNumDocsReturned { get; set; }
         public long TotalPayload { get; set; }
         public double TotalTime { get; set; }
-        public IList<ISolrQuery> Queries { get; set; }
+        public List<ISolrQuery> Queries { get; set; }
         public string SelectedIndex { get; set; }
         public List<string> Indexes { get; set; }
+
+        protected abstract string QueryIndentifier { get; }
 
         public void Process()
         {
@@ -32,7 +35,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             }
         }
 
-        public void ProcessItem(ISolrQuery query)
+        private void ProcessItem(ISolrQuery query)
         {
             string fullUrl = query.GetQueryUrl();
 
@@ -58,13 +61,13 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
                         TimeSpan span = DateTime.Now.Subtract(start);
                         TotalTime += span.TotalMilliseconds;
                         query.Timespan = span;
-                        
+
                         //number of rows/documents requested
                         query.RowsRequested = GetRowsRequestedCount(data);
 
                         //number of documents found, not the number returned.
                         query.DocumentsFound = GetDocumentsFoundCount(data);
-                        
+
                         //number of documents returned in the query
                         query.DocumentsReturned = GetDocumentsReturnedCount(data);
                         TotalNumDocsReturned += query.DocumentsReturned;
@@ -79,12 +82,12 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             }
         }
 
-        private int GetDocumentsReturnedCount(string data)
+        protected virtual int GetDocumentsReturnedCount(string data)
         {
             return Regex.Matches(data, "<doc>").Count;
         }
 
-        private int GetDocumentsFoundCount(string data)
+        protected virtual int GetDocumentsFoundCount(string data)
         {
             string intString = "";
 
@@ -116,7 +119,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             return 0;
         }
 
-        private int GetRowsRequestedCount(string data)
+        protected virtual int GetRowsRequestedCount(string data)
         {
             string intString = "";
             int rowStartingPoint = data.IndexOf("<str name=\"rows\">", StringComparison.Ordinal);
@@ -159,7 +162,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             {
                 List<ISolrQuery> logEntries = WriteSafeReadAllLines(path)
                     .Where(x => x.Contains(queryIdentifier))
-                    .Select(x => (ISolrQuery)new SolrQuery(x))
+                    .Select(GetSolrQuery)
                     .Where(x => x.IsValid)
                     .ToList();
 
@@ -167,7 +170,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
                     .Distinct()
                     .OrderBy(x => x)
                     .ToList();
-
+                
                 //filter out other indexes if one is selected
                 if (!string.IsNullOrEmpty(SelectedIndex))
                 {
@@ -180,16 +183,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
             }
         }
 
-        protected virtual List<ISolrQuery> Filter(List<ISolrQuery> entries)
-        {
-            //distinct queries
-            entries = entries
-                .GroupBy(p => p.Query)
-                .Select(g => g.First())
-                .ToList();
-
-            return entries;
-        }
+        protected abstract ISolrQuery GetSolrQuery(string logEntry);
 
         private string[] WriteSafeReadAllLines(String path)
         {
@@ -204,6 +198,17 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Models
 
                 return file.ToArray();
             }
+        }
+
+        protected virtual List<ISolrQuery> Filter(List<ISolrQuery> entries)
+        {
+            //distinct queries
+            entries = entries
+                .GroupBy(p => p.Query)
+                .Select(g => g.First())
+                .ToList();
+
+            return entries;
         }
     }
 }

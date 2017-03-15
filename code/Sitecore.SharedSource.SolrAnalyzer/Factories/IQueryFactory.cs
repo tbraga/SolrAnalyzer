@@ -1,4 +1,4 @@
-﻿using Sitecore.SharedSource.SolrAnalyzer.Models;
+﻿using Sitecore.SharedSource.SolrAnalyzer.Models.Boards;
 
 namespace Sitecore.SharedSource.SolrAnalyzer.Factories
 {

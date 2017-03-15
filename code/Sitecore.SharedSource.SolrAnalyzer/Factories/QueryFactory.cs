@@ -1,4 +1,4 @@
-﻿using Sitecore.SharedSource.SolrAnalyzer.Models;
+﻿using Sitecore.SharedSource.SolrAnalyzer.Models.Boards;
 
 namespace Sitecore.SharedSource.SolrAnalyzer.Factories
 {
@@ -8,7 +8,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Factories
 
         public IStatisticsBoard GetStatisticsBoard()
         {
-            _board = new StatisticsBoard();
+            _board = new StatisticsBoardSolr6();
             _board.GetQueries();
             _board.Process();
 
@@ -17,7 +17,7 @@ namespace Sitecore.SharedSource.SolrAnalyzer.Factories
 
         public IStatisticsBoard GetStatisticsBoard(string index)
         {
-            _board = new StatisticsBoard();
+            _board = new StatisticsBoardSolr6();
             _board.SelectedIndex = index;
             _board.GetQueries();
             _board.Process();

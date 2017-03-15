@@ -210,11 +210,15 @@
     <Compile Include="Factories\IQueryFactory.cs" />
     <Compile Include="Factories\QueryFactory.cs" />
     <Compile Include="Foundation\ServiceCollectionExtensions.cs" />
-    <Compile Include="Models\IStatisticsBoard.cs" />
+    <Compile Include="Models\Boards\AStatisticsBoard.cs" />
+    <Compile Include="Models\Boards\IStatisticsBoard.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Models\ISolrQuery.cs" />
-    <Compile Include="Models\SolrQuery.cs" />
-    <Compile Include="Models\StatisticsBoard.cs" />
+    <Compile Include="Models\Queries\ASolrQuery.cs" />
+    <Compile Include="Models\Queries\ISolrQuery.cs" />
+    <Compile Include="Models\Queries\Solr4Query.cs" />
+    <Compile Include="Models\Queries\Solr6Query.cs" />
+    <Compile Include="Models\Boards\StatisticsBoardSolr6.cs" />
+    <Compile Include="Models\Boards\StatisticsBoardSolr4.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
